@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System_Critical_Kernel_Update.exe - v2.4.1</title>
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<!-- BOSS KEY OVERLAY -->
+<div id="boss-key-overlay">
+  <div id="boss-excel">
+    <!-- fake Excel -->
+  </div>
+  <div id="boss-terminal">
+    <div class="terminal-line" id="term-lines"></div>
+  </div>
+  <div id="boss-key-hint">ESCキーで解除</div>
+</div>
+
+<!-- NOTIFICATIONS -->
+<div id="notif-container"></div>
+
+<div class="page-root">
+
+  <!-- TITLE BAR -->
+  <div class="title-bar">
+    <div class="title-left">
+      <span class="app-icon">💼</span>
+      <span class="app-name">Saborhythm</span>
+      <span class="app-ver">v2.4.1-PROD</span>
+    </div>
+    <div class="title-right">
+      <span class="proc-name">System_Critical_Kernel_Update.exe</span>
+      <span class="title-btn minimize">─</span>
+      <span class="title-btn maximize">□</span>
+      <span class="title-btn close">✕</span>
+    </div>
+  </div>
+
+  <!-- UPTIME ROW -->
+  <div class="uptime-row">
+    <div class="uptime-indicator" id="uptime-dot"></div>
+    <span id="uptime-label">稼働中 — 平日業務時間帯サポートシステム</span>
+    <span id="uptime-clock">--:--:--</span>
+    <span style="font-size:10px; color:#bbb;">稼働率: 99.999%</span>
+  </div>
+
+  <!-- PROGRESS BAR (always 87%) -->
+  <div class="progress-section">
+    <div class="progress-label-row">
+      <span>全体処理進捗</span>
+      <span id="progress-pct">87%</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="main-progress-fill"></div>
+    </div>
+    <div class="progress-sublabel">処理中: <span id="progress-task">コンテキスト境界分析エンジン初期化中...</span></div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-layout">
+
+    <!-- LEFT COLUMN -->
+    <div class="left-col">
+
+      <!-- F-01/F-02: BUSY CAMOUFLAGE -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📨 ビジー・カモフラージュ</span>
+          <span class="badge badge-green" id="busy-status-badge">稼働中</span>
+        </div>
+        <div class="card-body">
+
+          <div class="section-label">F-01: 擬似タイピング送信</div>
+          <div class="typing-sim-box" id="typing-sim-box">
+            <span class="typing-sim-channel">#general</span>
+            <div class="typing-sim-bar">
+              <span id="typing-sim-text" class="typing-sim-text"></span>
+              <span class="typing-cursor" id="typing-cursor-el">|</span>
+            </div>
+            <div class="typing-sim-status" id="typing-sim-status">意識高男 が入力中...</div>
+          </div>
+          <div class="btn-row" style="margin-top:8px;">
+            <button class="btn btn-primary" id="btn-start-typing" onclick="startTypingCamo()">▶ 開始</button>
+            <button class="btn" id="btn-stop-typing" onclick="stopTypingCamo()">■ 停止</button>
+            <span class="field-hint" id="typing-hint">次回投棄まで: <span id="typing-countdown">--</span>秒</span>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="section-label">F-02: 意識高い系独り言Bot</div>
+          <div class="bot-output" id="bot-output">
+            <span style="color:#bbb; font-size:12px;">次の投稿を待機中...</span>
+          </div>
+          <div class="btn-row" style="margin-top:6px;">
+            <button class="btn btn-primary" onclick="generateBotPost()">今すぐ投稿</button>
+            <span class="field-hint">次回自動投稿: <span id="bot-countdown">--</span>分後</span>
+          </div>
+          <div class="log-box" id="bot-log">
+            <div class="log-entry log-info">[システム] 自動投稿Botが初期化されました</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- F-03/F-04: PARACHUTE -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🪂 パラシュート・ボタン</span>
+          <span class="badge badge-yellow">スタンバイ</span>
+        </div>
+        <div class="card-body">
+          <div class="section-label">F-03: 緊急回線切断</div>
+          <button class="btn btn-danger btn-parachute" onclick="parachuteDeploy()">
+            🚨 緊急脱出 — EJECT
+          </button>
+          <div class="field-hint" style="margin-top:6px;">押すと自動でSlackに言い訳が送信されます</div>
+
+          <div class="divider"></div>
+
+          <div class="section-label">F-04: うなづきGIF・仮想カメラ</div>
+          <div class="nodding-camera" id="nodding-cam">
+            <span class="cam-label">CAM</span>
+            <div class="cam-live-dot"></div>
+            <div class="nodding-person" id="nodding-person">
+              <div class="np-head"></div>
+              <div class="np-body">
+                <div class="np-arms"></div>
+              </div>
+              <span class="np-memo">✏️</span>
+            </div>
+          </div>
+          <div class="btn-row" style="margin-top:8px;">
+            <button class="btn btn-primary" id="btn-cam-toggle" onclick="toggleNoddingCam()">📹 仮想カメラ ON</button>
+            <span class="field-hint" id="cam-status-text">カメラ: 停止中</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /left-col -->
+
+    <!-- RIGHT COLUMN -->
+    <div class="right-col">
+
+      <!-- F-05: BOSS KEY -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🛡️ パニック・シールド</span>
+          <span class="badge badge-red">最高機密</span>
+        </div>
+        <div class="card-body">
+          <div class="section-label">F-05: ボス・キー（0.05秒瞬殺）</div>
+          <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+            <button class="btn btn-danger" style="font-size:13px; padding:8px 18px; font-weight:bold;" onclick="activateBossKey()">
+              👔 BOSS KEY 発動
+            </button>
+            <span class="field-hint">または <kbd>B</kbd> キーを押下</span>
+          </div>
+          <div class="field-hint" style="margin-top:8px; line-height:1.7;">
+            ▸ Excel偽装画面 + ターミナルで全画面を覆います<br>
+            ▸ ESCキーまたは画面クリックで解除
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="section-label">F-06: マウス・ジグラー（有機的微動）</div>
+          <div class="jiggler-canvas-wrap">
+            <canvas id="jiggler-canvas"></canvas>
+            <div class="jiggler-cursor" id="jiggler-cursor"></div>
+          </div>
+          <div class="btn-row" style="margin-top:8px;">
+            <button class="btn btn-primary" id="btn-jiggler" onclick="toggleJiggler()">▶ ジグラー起動</button>
+            <span class="jiggler-status" id="jiggler-status">停止中</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- F-07: EXCUSE GENERATOR -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🤥 エクスキューズ・ジェネレーター</span>
+          <span class="badge badge-green">AI駆動</span>
+        </div>
+        <div class="card-body">
+          <div class="section-label">F-07: 天変地異・生理現象ジェネレーター</div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+            <select class="form-select" id="excuse-type">
+              <option value="late">遅刻</option>
+              <option value="early">早退</option>
+              <option value="away">離席</option>
+              <option value="mute">マイクトラブル</option>
+              <option value="disconnect">回線切断</option>
+            </select>
+            <button class="btn btn-primary" onclick="generateExcuse()">🎲 生成</button>
+          </div>
+          <div class="excuse-output" id="excuse-output">ここに言い訳が生成されます。</div>
+          <div class="excuse-meta" id="excuse-meta"></div>
+          <button class="excuse-copy-btn" onclick="copyExcuse()">📋 クリップボードにコピー</button>
+
+          <div class="divider"></div>
+
+          <div class="section-label">上司への返信ドラフト（3秒以内生成）</div>
+          <div style="display:flex; gap:8px; margin-bottom:8px;">
+            <input class="form-input" id="boss-msg-input" placeholder="上司のメッセージを入力（例: 今ちょっといい？）" style="flex:1;" />
+            <button class="btn btn-primary" onclick="generateReply()">返信生成</button>
+          </div>
+          <div class="excuse-output" id="reply-output" style="min-height:38px; font-size:12px; color:#333;">
+            上司のメッセージを入力して「返信生成」を押してください。
+          </div>
+
+          <div class="excuse-history" id="excuse-history">
+            <div style="font-weight:bold; margin-bottom:4px; font-size:11px;">使用履歴（上司にバレたら即削除）</div>
+            <div id="excuse-history-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DISCLAIMER -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">⚖️ 免責事項</span>
+        </div>
+        <div class="card-body">
+          <div class="disclaimer-box">
+            <h4>§ 法務要件 / LEGAL DISCLAIMER</h4>
+            <ol>
+              <li>本システムの利用により、社内評価の低下・降格・懲戒解雇となった場合、開発チームは一切の責任を負いません。</li>
+              <li>「ルンバに足を食われた」を怪しまれ写真を要求された場合の合成画像生成機能は<strong>有償オプション</strong>です。</li>
+              <li>万が一、本物の成果物が完成してしまった場合、バグとして速やかに握りつぶしてください。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /right-col -->
+
+  </div><!-- /main-layout -->
+
+  <div class="footer">
+    Saborhythm v2.4.1 &nbsp;|&nbsp; 合同会社 働きたくないでござる &nbsp;|&nbsp;
+    AES-256暗号化によりサボりログは完全秘匿されています &nbsp;|&nbsp;
+    <span id="footer-day-msg"></span>
+  </div>
+
+</div><!-- /page-root -->
+
+  <script src="js/app.js"></script>
+</body>
+</html>
